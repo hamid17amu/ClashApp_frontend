@@ -1,6 +1,6 @@
 "use server"
 
-import { REGISTER_URL } from "@/lib/apiEndPoints"
+import { CHECK_CRED_URL, REGISTER_URL } from "@/lib/apiEndPoints"
 import axios, { AxiosError } from "axios"
 
 export async function registerAction(prevState:any, formdata: FormData) {
@@ -38,14 +38,18 @@ export async function registerAction(prevState:any, formdata: FormData) {
 
 export async function loginAction(prevState:any, formdata: FormData) {
     try {
-        const {data} = await axios.post(REGISTER_URL,{
+        const {data} = await axios.post(CHECK_CRED_URL,{
             email:formdata.get("email"),
             password: formdata.get("password")
         });
         return {
             status:200,
             message: data?.message,
-            error:{}
+            error:{},
+            data:{
+                email:formdata.get("email"),
+                password: formdata.get("password")
+            }
         }
     } catch (error) {
         if(error instanceof AxiosError){
