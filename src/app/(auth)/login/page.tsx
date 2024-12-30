@@ -1,8 +1,24 @@
+// "use client"
 import Login from '@/components/auth/Login'
 import Link from 'next/link'
+// import { redirect, useSearchParams } from 'next/navigation';
 import React from 'react'
+// import { toast } from 'sonner';
 
 export default function login() {
+    //   const searchParams = useSearchParams();
+    //   const verify=searchParams.get('verify');
+    //   const resetPassword=searchParams.get('resetPassword');
+    
+    //   if(verify==="successful"){
+    //     toast.success("Email verification successful");
+    //     redirect("/login");
+    //   }
+    
+    //   if(resetPassword==='successful'){
+    //     toast.success("Password reset successful");
+    //     redirect("/login");
+    //   }
   return (
     <div className='flex justify-center items-center h-screen'>
         <div className='w-[550px] bg-white rounded-xl px-10 shadow-xl py-5 px-10'>

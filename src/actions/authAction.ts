@@ -1,6 +1,6 @@
 "use server"
 
-import { CHECK_CRED_URL, REGISTER_URL } from "@/lib/apiEndPoints"
+import { CHECK_CRED_URL, FORGOT_URL, REGISTER_URL, RESET_URL } from "@/lib/apiEndPoints"
 import axios, { AxiosError } from "axios"
 
 export async function registerAction(prevState:any, formdata: FormData) {
@@ -65,6 +65,71 @@ export async function loginAction(prevState:any, formdata: FormData) {
         return {
             status: 500,
             message:"Oops! Something Went Wrong.",
+            error:{}
+        }
+    }
+}
+
+export async function forgotPasswordAction(prevState: any, formdata: FormData){
+    try {
+        const {data} = await axios.post(FORGOT_URL,{
+            email:formdata.get("email"),
+        });
+        return {
+            status:200,
+            message: data?.message,
+            error:{},
+            data:{
+                email:formdata.get("email"),
+            }
+        }
+    } catch (error) {
+        if(error instanceof AxiosError){
+            if(error.response?.status===422){
+                return {
+                    status: 422,
+                    message:error.response?.data.message,
+                    error:error.response?.data.errors
+                }
+            }
+        }
+
+        return {
+            status: 500,
+            message:"Oops! Something Went Wrong.",
+            error:{}
+        }
+    }
+}
+
+
+export async function resetPasswordAction(prevState:any, formdata: FormData) {
+    try {
+        const {data} = await axios.post(RESET_URL,{
+            email:formdata.get("email"),
+            token:formdata.get("token"),
+            password: formdata.get("password"),
+            confirm_password: formdata.get("cpassword")
+        });
+        return {
+            status:200,
+            message: data?.message,
+            error:{}
+        }
+    } catch (error) {
+        if(error instanceof AxiosError){
+            if(error.response?.status===422){
+                return {
+                    status: 422,
+                    message:error.response?.data.message,
+                    error:error.response?.data.errors
+                }
+            }
+        }
+
+        return {
+            status: 500,
+            message: "Oops! Something Went Wrong.",
             error:{}
         }
     }
