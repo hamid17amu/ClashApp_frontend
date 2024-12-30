@@ -23,10 +23,9 @@ export const authOptions:AuthOptions = {
     callbacks: {
         async session({ session, user, token }:{session:customSession, user:customUser, token:JWT}) {
             session.user=token.user as customUser;
-
           return session
         },
-        async jwt({ token, user }:{token:JWT, user:customUser}) {
+        async jwt({ token, user }:{token:JWT, user:customUser| null}) {
             if(user){
                 token.user=user;
             }

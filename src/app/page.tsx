@@ -3,8 +3,8 @@ import React from 'react'
 import {getServerSession} from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/options'
 
-const App = () => {
-  const session=getServerSession(authOptions);
+const App = async() => {
+  const session=await getServerSession(authOptions);
 
   return (
     <div>
