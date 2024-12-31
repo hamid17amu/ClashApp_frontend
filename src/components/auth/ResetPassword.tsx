@@ -7,9 +7,9 @@ import { SubmitButton } from "../Common/SubmitButton";
 import { resetPasswordAction } from "@/actions/authAction";
 import { useActionState } from "react";
 import { toast } from "sonner";
-import {redirect, useSearchParams} from 'next/navigation'
+import { redirect, useSearchParams } from "next/navigation";
 export default function ResetPassword() {
-    const searchParams=useSearchParams();
+  const searchParams = useSearchParams();
   let initState = {
     status: 0,
     message: "",
@@ -17,20 +17,27 @@ export default function ResetPassword() {
   };
   const [state, formAction] = useActionState(resetPasswordAction, initState);
   useEffect(() => {
-    if(state.status===500 || state.status===422){
+    if (state.status === 500 || state.status === 422) {
       toast.error(state.message);
-    }else if(state.status===200){
+    } else if (state.status === 200) {
       toast.success(state.message);
       redirect("/login");
     }
-
   }, [state]);
 
   return (
     <div>
       <form action={formAction}>
-        <input type="hidden" name="token" value={searchParams.get('token')??""} />
-        <input type="hidden" name="email" value={searchParams.get('email')??""} />
+        <input
+          type="hidden"
+          name="token"
+          value={searchParams.get("token") ?? ""}
+        />
+        <input
+          type="hidden"
+          name="email"
+          value={searchParams.get("email") ?? ""}
+        />
         <div className="mt-2">
           <Label htmlFor="password">Password</Label>
           <Input
