@@ -4,8 +4,11 @@ import Link from 'next/link'
 // import { redirect, useSearchParams } from 'next/navigation';
 import React from 'react'
 // import { toast } from 'sonner';
+import {getServerSession} from 'next-auth'
+import { authOptions } from '@/app/api/auth/[...nextauth]/options'
+import { redirect } from 'next/navigation'
 
-export default function login() {
+export default async function login() {
     //   const searchParams = useSearchParams();
     //   const verify=searchParams.get('verify');
     //   const resetPassword=searchParams.get('resetPassword');
@@ -19,6 +22,10 @@ export default function login() {
     //     toast.success("Password reset successful");
     //     redirect("/login");
     //   }
+    const session=await getServerSession(authOptions);
+    if(session){
+        redirect("/dashboard");
+    }
   return (
     <div className='flex justify-center items-center h-screen'>
         <div className='w-[550px] bg-white rounded-xl px-10 shadow-xl py-5 px-10'>

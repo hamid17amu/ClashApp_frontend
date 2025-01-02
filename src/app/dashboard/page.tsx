@@ -16,6 +16,10 @@ export default async function dashboard() {
           <Addclash user={session?.user!}/>
         </div>
 
+        {clashData.length===0 && <div className='flex text-center w-full h-[100vh] justify-center items-center mt-10'>
+          <h1 className='text-3xl bolder'>Click on <strong>Add Clash</strong> to add your first clash</h1>
+        </div>}
+
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
           {clashData.length>0 && clashData?.map((clash:clashData)=>{
             return <ClashCard key={clash.id} clash={clash} token={session?.user?.token!}/>

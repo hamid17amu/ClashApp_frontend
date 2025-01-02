@@ -52,7 +52,6 @@ export default function Addclash({token, clash, Open, setOpen}:{token:string, cl
       formData.append('description',clashData?.description??"");
       formData.append('expire_at',date?.toISOString() ?? "");
       if(Image) formData.append('image',Image);
-        console.log(clash.id);
         
       const {data} = await axios.put(`${CLASH_URL}/${clash.id}`,formData, {headers:{
         Authorization: token
